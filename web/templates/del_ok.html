@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Input jd url</title>
+    </head>
+
+    <body>
+        <form action="/del" method="POST">
+            {% raw xsrf_form_html() %}
+            Jd url: <input type="text" name="jdurl" />
+            <input type="submit" value="URL" />
+        </form>
+        <p> {{ jdurl }} has deleted </p>
+    </body>
+</html>

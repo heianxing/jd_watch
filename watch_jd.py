@@ -73,6 +73,17 @@ def watch_item(url=None, send_msg=True, phone_num=None, phone_pwd=None):
 
     save_skuid(all_skuid)
 
+def remove_watch_item(url):
+    all_skuid = get_skuid()
+
+    if url:
+        skuid = jd.parse_url_for_skuid(url)
+        if not skuid:
+            return
+
+        del all_skuid[skuid]
+        save_skuid(all_skuid)
+
 def run_forever():
     while True:
         watch_item()
