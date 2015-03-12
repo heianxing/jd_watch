@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Input jd url</title>
+    </head>
+
+    <body>
+        <form action="/add" method="POST">
+            {% raw xsrf_form_html() %}
+            Jd skuid: <input type="text" name="jdurl" />
+            <input type="submit" value="Submit" />
+        </form>
+    </body>
+</html>

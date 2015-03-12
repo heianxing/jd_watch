@@ -1,0 +1,5 @@
+*.pyc
+*.swp
+/logs/
+/web/logs/
+skuid.txt
