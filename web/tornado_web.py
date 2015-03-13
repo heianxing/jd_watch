@@ -21,20 +21,22 @@ import watch_jd
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-define("port", default=9123, type=int, help="使用端口 --port=9876")
+define("port", default=9124, type=int, help="使用端口 --port=9876")
 
 class App(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r'/', IndexHandler),
             (r'/add', AddHandler),
+            (r'/del', DelHandler),
+            (r'/list', ListHandler),
             (r'/login', LoginHandler),
         ]
 
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            cookie_secret="nvvFPjUTTxKh309Kb8V0opSxA8l4a9D6h0bN5Hd3L+s=",
+            cookie_secret="nvvFPjUTTxKh399Kb8V0opSxA8l4a9D6h0bN5Hd3L+s=",
             xsrf_cookies=True,
             login_url="/login",
             gzip=True,
@@ -64,15 +66,36 @@ class LoginHandler(BaseHandler):
         self.redirect("/add")
 
 class AddHandler(BaseHandler):
+    @tornado.web.authenticated
     def get(self):
         self.render('add.html')
 
+    @tornado.web.authenticated
     @run_on_executor
     def post(self):
         jdurl = self.get_argument('jdurl')
         if jdurl:
             watch_jd.watch_item(jdurl)
             self.render('add_ok.html', jdurl=jdurl)
+
+class DelHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        self.render('del.html')
+
+    @tornado.web.authenticated
+    @run_on_executor
+    def post(self):
+        jdurl = self.get_argument('jdurl')
+        if jdurl:
+            watch_jd.remove_watch_item(jdurl)
+            self.render('del_ok.html', jdurl=jdurl)
+
+class ListHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        all_goods = watch_jd.get_skuid()
+        self.render('list.html', all_goods = all_goods.items())
 
 def check_price():
     watch_jd.watch_item()

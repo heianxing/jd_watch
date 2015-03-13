@@ -47,14 +47,14 @@ def watch_item(url=None, send_msg=True, phone_num=None, phone_pwd=None):
                 send_msg = str(ret['price'])
                 notify.fetion(send_title, send_msg)
 
-                del ret['title']
+                #del ret['title']
                 all_skuid[skuid] = ret
         else:
             """ new item, save into txt """
             ret = jd.run(skuid)
             if ret['price'] > 0:
                 """ insert into file """
-                del ret['title']
+                #del ret['title']
                 all_skuid[skuid] = ret
 
     else:
@@ -68,7 +68,7 @@ def watch_item(url=None, send_msg=True, phone_num=None, phone_pwd=None):
                 send_msg = str(ret['price'])
                 notify.fetion(send_title, send_msg)
 
-                del ret['title']
+                #del ret['title']
                 all_skuid[skuid] = ret
 
     save_skuid(all_skuid)

@@ -1,0 +1,14 @@
+<html>
+<head>
+</head>
+<body>
+    {% for goods in all_goods %}
+        <p>skuid：{{ goods[0] }}</p>
+        <p>商品名：{{ goods[1]['title'] }}</p>
+        <p>价格：{{ goods[1]['price'] }}</p>
+        <p>是否有货：{% if goods[1]['stock_state'] == 1 %} 有货 {% else %} <font color="red">无货</font> {% end %}</p>
+        <p>价格：{{ goods[1]['price'] }}</p>
+        <p>#####################################</p>
+    {% end %}
+</body>
+</html>
